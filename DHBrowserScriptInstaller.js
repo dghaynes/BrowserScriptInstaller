@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name           BrowserScriptsInstaller
 // @author         dghaynes@
-// @namespace      http://www.amazon.com
+// @namespace     //
 // @description    A script to install all browser scripts for TOC
-// @downloadURL    //
-// @updateURL      //
+// @downloadURL    https://github.com/dghaynes/BrowserScriptInstaller/blob/main/DHBrowserScriptInstaller.js?raw=1
+// @updateURL      https://github.com/dghaynes/BrowserScriptInstaller/blob/main/DHBrowserScriptInstaller.js?raw=1
 // @version        0.1.00
 // @grant          GM_addStyle
 // @grant          GM_getValue
@@ -16,12 +16,12 @@
 // @grant          unsafeWindow
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @require        https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js
-// @include        *t.corp.amazon.*
+// @include
 // ==/UserScript==
 
 GM_addStyle(`
   /* The Modal (background) */
-  .toc_modal {
+  .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -36,7 +36,7 @@ GM_addStyle(`
 
 
   /* Modal Content/Box */
-  .toc_modal_content {
+  .modal_content {
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
@@ -46,20 +46,20 @@ GM_addStyle(`
     color: black;
   }
 
-  .toc_modal_button {
+  .modal_button {
     width: 100%;
   }
 
   /* The Close Button */
-  .toc_close {
+  .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
   }
 
-  .toc_close:hover,
-  .toc_close:focus {
+  .close:hover,
+  .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
@@ -100,7 +100,6 @@ function getLatestVersion() {
         method: 'GET',
         url: downloadUrl,
         headers: {
-            "Content-Encoding": "amz-1.0",
             "charset": "UTF-8",
         },
     }).then(response => {
@@ -113,6 +112,7 @@ function getLatestVersion() {
     });
     return response;
 };
+
 function isCurrentVersionOld(latestVersion) {
     var latestVersionBits = latestVersion.split('.');
     var currentVersionBits = currentVersion.split('.');
@@ -123,7 +123,8 @@ function isCurrentVersionOld(latestVersion) {
             return true;
     }
     return false;
-}
+};
+
 function open_windows() {
     //window.open('https://code.amazon.com/packages/JIHMTOCTools/blobs/mainline/--/configuration/userscripts/CreateDispatch.user.js?raw=1', '_blank');
     //window.open('https://code.amazon.com/packages/JIHMTOCTools/blobs/mainline/--/configuration/userscripts/StoreMetadata.user.js?raw=1', '_blank');
@@ -156,14 +157,14 @@ if (isBrowserVersionChecked === undefined
     if (isCurrentVersionOld(latestVersion)) {
         var modalElement = document.createElement('div');
         modalElement.id = 'myModal';
-        modalElement.classList.add('toc_modal');
+        modalElement.classList.add('modal');
         modalElement.style.display = 'none';
         var modalContent = `
                 <!-- Modal content -->
-                <div class="toc_modal_content">
-                    <span class="toc_close" >&times;</span>
+                <div class="modal_content">
+                    <span class="close" >&times;</span>
                     <p>
-                        <button id="myButton" class="toc_modal_button" type="button" onclick="open_windows()">
+                        <button id="myButton" class="modal_button" type="button" onclick="open_windows()">
                             TOC Browser Script Update. Click here!
                         </button>
                         <div id='check_popup' class='shake'>
@@ -186,7 +187,7 @@ if (isBrowserVersionChecked === undefined
         $('#myModal').css('transform', 'translate(-50%, -50%)');
         $('#myModal').css('width', '100%');
         $('#myModal').css('height', '100%');
-        var span = document.getElementsByClassName('toc_close')[0];
+        var span = document.getElementsByClassName('close')[0];
         modal.style.display = 'block';
         span.onclick = function () {
             modal.style.display = 'none';

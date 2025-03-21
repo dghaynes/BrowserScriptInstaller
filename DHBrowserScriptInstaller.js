@@ -1,8 +1,7 @@
 // ==UserScript==
-// @name           BrowserScriptsInstaller
-// @author         dghaynes@
-// @namespace     //
-// @description    A script to install all browser scripts for TOC
+// @name           DHBrowserScriptsInstaller
+// @author         dghaynes
+// @description    A script to install all browser scripts for Derek
 // @downloadURL    https://github.com/dghaynes/BrowserScriptInstaller/blob/main/DHBrowserScriptInstaller.js?raw=1
 // @updateURL      https://github.com/dghaynes/BrowserScriptInstaller/blob/main/DHBrowserScriptInstaller.js?raw=1
 // @version        0.1.00
@@ -16,7 +15,7 @@
 // @grant          unsafeWindow
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @require        https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js
-// @include
+// @include        *localhost*
 // ==/UserScript==
 
 GM_addStyle(`
@@ -86,13 +85,13 @@ GM_addStyle(`
 ` );
 
 
-var isBrowserVersionChecked = await GM.getValue("browser_script_version_checked");
-var browserVersionCheckedTime = await GM.getValue("browser_script_version_checked_time");
+let isBrowserVersionChecked = await GM.getValue("browser_script_version_checked");
+let browserVersionCheckedTime = await GM.getValue("browser_script_version_checked_time");
 
 unsafeWindow.open_windows = open_windows;
 
-var currentVersion = GM_info.script.version;
-var downloadUrl = GM_info.script.downloadURL;
+let currentVersion = GM_info.script.version;
+let downloadUrl = GM_info.script.downloadURL;    // points to my git repository where the latest version can be found
 
 function getLatestVersion() {
     let gmReq = GM.xmlHttpRequest;
@@ -114,34 +113,30 @@ function getLatestVersion() {
 };
 
 function isCurrentVersionOld(latestVersion) {
-    var latestVersionBits = latestVersion.split('.');
-    var currentVersionBits = currentVersion.split('.');
+    let latestVersionBits = latestVersion.split('.');
+    let currentVersionBits = currentVersion.split('.');
     if (latestVersionBits.length != currentVersionBits.length)
         return false;
-    for (var ind = 0; ind < latestVersionBits.length; ind++) {
+    for (let ind = 0; ind < latestVersionBits.length; ind++) {
         if (!isNaN(latestVersionBits[ind]) && !isNaN(currentVersionBits[ind]) && parseInt(latestVersionBits[ind]) > parseInt(currentVersionBits[ind]))
             return true;
     }
     return false;
 };
 
+//These point to all my current browser scripts
 function open_windows() {
-    //window.open('https://code.amazon.com/packages/JIHMTOCTools/blobs/mainline/--/configuration/userscripts/CreateDispatch.user.js?raw=1', '_blank');
-    //window.open('https://code.amazon.com/packages/JIHMTOCTools/blobs/mainline/--/configuration/userscripts/StoreMetadata.user.js?raw=1', '_blank');
-    //window.open('https://code.amazon.com/packages/JIHMTOCTools/blobs/mainline/--/configuration/userscripts/TicketEscalation.user.js?raw=1', '_blank');
-    //window.open('https://code.amazon.com/packages/JIHMTOCTools/blobs/mainline/--/configuration/userscripts/TOCTicketHandoff.user.js?raw=1', '_blank');
-   // window.open('https://code.amazon.com/packages/JIHMTOCTools/blobs/mainline/--/configuration/userscripts/CreateStoreOpsRequest.user.js?raw=1', '_blank');
-    //window.open('https://code.amazon.com/packages/JIHMTOCTools/blobs/mainline/--/configuration/userscripts/downtimeSessionsSelector.user.js?raw=1', '_blank');
-    window.open('https://code.amazon.com/packages/JIHMTOCTools/blobs/mainline/--/configuration/userscripts/TOCBrowserScriptsInstaller.user.js?raw=1', '_blank');
-    var modal = document.getElementById('myModal');
+    window.open('https://github.com/dghaynes/BrowserScriptInstaller/blob/main/DHBrowserScriptInstaller.js?raw=1', '_blank');
+    window.open('https://github.com/dghaynes/TamperMonkeyStarter/blob/main/Boilerplate.js?raw=1', '_blank');
+    let modal = document.getElementById('myModal');
     modal.style.display = 'none';
 }
 
 // FOR TESTING ONLY
-// console.log('--- --- ---');
-// console.log(isBrowserVersionChecked);
-// console.log(browserVersionCheckedTime);
-// console.log('--- --- ---');
+ console.log('--- --- ---');
+ console.log(isBrowserVersionChecked);
+ console.log(browserVersionCheckedTime);
+ console.log('--- --- ---');
 // END FOR TESTING ONLY
 
 if (isBrowserVersionChecked === undefined
@@ -165,7 +160,7 @@ if (isBrowserVersionChecked === undefined
                     <span class="close" >&times;</span>
                     <p>
                         <button id="myButton" class="modal_button" type="button" onclick="open_windows()">
-                            TOC Browser Script Update. Click here!
+                            DH Browser Script Update. Click here!
                         </button>
                         <div id='check_popup' class='shake'>
                             * Check your browser and enable pop-ups so other scripts can be installed.

@@ -4,7 +4,7 @@
 // @description    A script to install all browser scripts for Derek
 // @downloadURL    https://github.com/dghaynes/BrowserScriptInstaller/blob/main/DHBrowserScriptInstaller.js?raw=1
 // @updateURL      https://github.com/dghaynes/BrowserScriptInstaller/blob/main/DHBrowserScriptInstaller.js?raw=1
-// @version        0.1.00
+// @version        0.1.01
 // @grant          GM_addStyle
 // @grant          GM_getValue
 // @grant          GM_log
@@ -134,8 +134,8 @@ function open_windows() {
 
 // FOR TESTING ONLY
  console.log('--- --- ---');
- console.log(isBrowserVersionChecked);
- console.log(browserVersionCheckedTime);
+ console.log('Is browser checked?: ',isBrowserVersionChecked);
+ console.log('browser version checked:', timebrowserVersionCheckedTime);
  console.log('--- --- ---');
 // END FOR TESTING ONLY
 

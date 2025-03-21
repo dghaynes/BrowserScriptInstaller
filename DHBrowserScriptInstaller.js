@@ -135,7 +135,7 @@ function open_windows() {
 // FOR TESTING ONLY
  console.log('--- --- ---');
  console.log('Is browser checked?: ',isBrowserVersionChecked);
- console.log('browser version checked:', timebrowserVersionCheckedTime);
+ console.log('browser version checked:', browserVersionCheckedTime);
  console.log('--- --- ---');
 // END FOR TESTING ONLY
 
